@@ -11,11 +11,6 @@ export default function InterviewerListItem(props) {
     "interviewers__item--selected": props.selected
   })
 
-  let name = '';
-  if (props.selected) {
-    name = props.name
-  } 
-
   return (
     <li className={listClass} 
     onClick={()=> props.setInterviewer(props.name)}>
@@ -24,7 +19,8 @@ export default function InterviewerListItem(props) {
     src={props.avatar}
     alt={props.name}
     />
-    {name}
+    
+    {props.selected ? props.name : ''}
     </li>
   )
 
