@@ -7,55 +7,35 @@ import "components/Appointment";
 import "components/Application.scss";
 import Appointment from "components/Appointment";
 
-const appointments = [
-  {
-    id: 1,
-    time: "12pm",
-  },
-  {
-    id: 2,
-    time: "1pm",
-    interview: {
-      student: "Lydia Miller-Jones",
-      interviewer: {
-        id: 1,
-        name: "Sylvia Palmer",
-        avatar: "https://i.imgur.com/LpaY82x.png",
-      }
-    }
-  },
-  {
-    id: 3,
-    time: "2pm"
-  },
-  {
-    id: 4,
-    time: "3pm",
-    interview: {
-      student: "Lisa Nguyen",
-      interviewer: {
-        id: 1,
-        name: "Sylvia Palmer",
-        avatar: "https://i.imgur.com/LpaY82x.png",
-      }
-    }
-  },
-  {
-    id: 5,
-    time: "4pm",
-  },
-];
+import getAppointmentsForDay from '../helpers/selectors'
 
 
 export default function Application(props) {
-  // to show selected day
-  const [day, setDay] = useState('Monday')
+  
+  // managing state by combining
+  const [state, setState] = useState({
+    day: 'Monday',
+    days: [],
+    appointments: {}
+  })
+  
+  // to to populate the appointments based on the day selected
+  const dailyAppointments = getAppointmentsForDay(state, state.day);
 
-  // to receive days data from api/days and set as days array
-  const [days, setDays] = useState([]);
+  // function to update the state of day
+  const setDay = day => setState({...state, day});
+  // const setDays = days => setState(prev => ({...prev, days}));
 
   useEffect(() => {
-    axios.get('/api/days').then(res => setDays(res.data))
+    // axios.get('/api/days').then(res => setDays(res.data))
+    Promise.all([
+      axios.get('/api/days'),
+      axios.get('/api/appointments')
+    ]).then((all) => {
+      console.log(all[1].data);
+      setState(prev => ({...prev, days: all[0].data, appointments: {...all[1].data} }))
+    })
+
   }, [])
 
   return (
@@ -69,8 +49,8 @@ export default function Application(props) {
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu">
           <DayList 
-          days={days}
-          day={day}
+          days={state.days}
+          day={state.day}
           setDay={setDay}
           />
         </nav>
@@ -81,7 +61,7 @@ export default function Application(props) {
         />
       </section>
       <section className="schedule">
-        {appointments.map( appt => <Appointment key={appt.id} {...appt} />)}
+        {dailyAppointments.map( appt => <Appointment key={appt.id} {...appt} />)}
         <Appointment key="last" time='5pm'/>
       </section>
     </main>
