@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 
 import DayList from "components/DayList";
 import "components/Appointment";
@@ -47,29 +48,15 @@ const appointments = [
 
 
 export default function Application(props) {
+  // to show selected day
   const [day, setDay] = useState('Monday')
 
-  // mock days data
-  const days = [
-    {
-      id: 1,
-      name: "Monday",
-      spots: 2,
-    },
-    {
-      id: 2,
-      name: "Tuesday",
-      spots: 5,
-    },
-    {
-      id: 3,
-      name: "Wednesday",
-      spots: 0,
-    },
-  ];
+  // to receive days data from api/days and set as days array
+  const [days, setDays] = useState([]);
 
-  // appointment data
-
+  useEffect(() => {
+    axios.get('/api/days').then(res => setDays(res.data))
+  }, [])
 
   return (
     <main className="layout">
