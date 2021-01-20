@@ -1,6 +1,6 @@
+// helper functions to restructure data 
 
-
-export default function getAppointmentsForDay(state, day) {
+export function getAppointmentsForDay(state, day) {
   // returns an array of appointsments for the day
   let results = [];
 
@@ -19,5 +19,26 @@ export default function getAppointmentsForDay(state, day) {
   }
   // 3. validation - if no appointments on the given day, return empty []
   return results;
+}
 
+export function getInterview(state, interview) {
+
+  // if theres is no interview booked
+  if(interview === null) {
+    return null;
+  }
+
+  // using the interviewers id find match in the interviewers list
+  for (let interviewer in state.interviewers) {
+    if (interview.interviewer === state.interviewers[interviewer].id) {
+      const interviewerInfo = state.interviewers[interviewer]
+      //construct the result object
+      const result = {
+        'interviewer': {...interviewerInfo},
+        'student': interview.student
+      }
+      // if there is match, no need to complete loop
+      return result;
+    }
+  }
 }
