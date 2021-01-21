@@ -21,12 +21,18 @@ export default function Application(props) {
     interviewers: {}
   })
   
-  // to to populate the appointments based on the day selected
-  const dailyAppointments = getAppointmentsForDay(state, state.day);
+  // to book Interview
+  function bookInterview(id, interview) {
+    console.log(id, interview)
+  }
+
 
   // interviewers array to be passed to the appointment component
   const interviewersArr = getInterviewersForDay(state, state.day)
 
+  // to to populate the appointments based on the day selected
+  const dailyAppointments = getAppointmentsForDay(state, state.day);
+  
   // create schedule for the day selected with the interviewer name
   const schedule = dailyAppointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
@@ -38,6 +44,7 @@ export default function Application(props) {
         time={appointment.time}
         interview={interview} 
         interviewers={interviewersArr}
+        bookInterview={bookInterview}
       />
     );
   });
