@@ -34,10 +34,8 @@ export default function Application(props) {
     }
 
     return axios.put(`/api/appointments/${id}`, appointment).then(res => {
-      
-      console.log(res)
-      
-    }).then(setState(prev => ({...prev, appointments: appointments})))
+      setState(prev => ({...prev, appointments: appointments}))
+    })
 
     
   }
@@ -55,17 +53,14 @@ export default function Application(props) {
     }
 
     return axios.delete(`/api/appointments/${id}`, appointment).then(res => {
-      
-      console.log(res)
-      
-    }).then(setState(prev => ({...prev, appointments: appointments})))
+      setState(prev => ({...prev, appointments: appointments}))
+    })
 
 
   }
 
   // to edit Interview
   function editInterview(id, interview) {
-    console.log('was this function called?')
     const appointment = {
       ...state.appointments[id],
       interview: {...interview}
@@ -76,17 +71,11 @@ export default function Application(props) {
       [id]: appointment
     }
 
-    setState(prev => ({...prev, appointments: appointments}))
     
     return axios.put(`/api/appointments/${id}`, appointment).then(res => {
-      
-      console.log(res)
-      // console.log('axios called good!')
-      
-    }).then(setState(prev => ({...prev, appointments: appointments})))
+      setState(prev => ({...prev, appointments: appointments}))
+    })
 
-
-    
   }
 
 
