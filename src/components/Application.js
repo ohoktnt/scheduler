@@ -33,7 +33,7 @@ export default function Application(props) {
       [id]: appointment
     }
 
-    axios.put(`/api/appointments/${id}`, appointment).then(res => {
+    return axios.put(`/api/appointments/${id}`, appointment).then(res => {
       
       console.log(res)
       
@@ -54,7 +54,7 @@ export default function Application(props) {
       [id]: appointment
     }
 
-    axios.delete(`/api/appointments/${id}`, appointment).then(res => {
+    return axios.delete(`/api/appointments/${id}`, appointment).then(res => {
       
       console.log(res)
       
@@ -75,14 +75,10 @@ export default function Application(props) {
       ...state.appointments,
       [id]: appointment
     }
-    console.log('this is the id?')
-    console.log(id)
-    console.log(appointment)
-    console.log(appointments)
 
     setState(prev => ({...prev, appointments: appointments}))
     
-    axios.put(`/api/appointments/${id}`, appointment).then(res => {
+    return axios.put(`/api/appointments/${id}`, appointment).then(res => {
       
       console.log(res)
       // console.log('axios called good!')

@@ -32,20 +32,21 @@ export default function Appointment(props) {
       interviewer
     };
     
+    
     transition(SAVING);
 
-    props.bookInterview(props.id, interview)
+    props.bookInterview(props.id, interview).then(() => transition(SHOW))
 
-    transition(SHOW);
+    // transition(SHOW);
   }
 
   function removeAppt() {
 
     transition(DELETING)
 
-    props.cancelInterview(props.id)
+    props.cancelInterview(props.id).then(() => transition(EMPTY))
     
-    transition(EMPTY);
+    // transition(EMPTY);
 
   }
 
@@ -58,9 +59,9 @@ export default function Appointment(props) {
 
     transition(SAVING);
 
-    props.editInterview(props.id, interview)
+    props.editInterview(props.id, interview).then(() => transition(SHOW));
 
-    transition(SHOW);
+    // transition(SHOW);
 
   }
 
@@ -86,7 +87,7 @@ export default function Appointment(props) {
 
       {mode === SAVING && <Status message={'Saving'}/>}
       
-      {mode === DELETING && <Status messsage={'Deleting'} />}
+      {mode === DELETING && <Status message={'Deleting'} />}
 
       {mode === CONFIRM && <Confirm message={'Are you sure you would like to delete?'} onCancel={() => back()} onConfirm={removeAppt}/>}
 
