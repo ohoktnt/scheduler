@@ -5,6 +5,7 @@ import Show from 'components/Appointment/Show';
 import Empty from 'components/Appointment/Empty';
 import Form from 'components/Appointment/Form';
 import Status from 'components/Appointment/Status';
+import Confirm from 'components/Appointment/Confirm';
 
 import useVisualMode from 'hooks/useVisualMode';
 
@@ -15,6 +16,8 @@ const EMPTY = 'EMPTY';
 const SHOW = 'SHOW';
 const CREATE = 'CREATE';
 const SAVING = 'SAVING';
+const DELETING = 'DELETING';
+const CONFIRM = 'CONFIRM';
 
 export default function Appointment(props) {
   // call useVisualMode like the setState hook 
@@ -27,7 +30,7 @@ export default function Appointment(props) {
       student: name,
       interviewer
     };
-
+    
     transition(SAVING);
 
     props.bookInterview(props.id, interview)
@@ -35,8 +38,9 @@ export default function Appointment(props) {
     transition(SHOW);
   }
 
-  function cancel() {
+  function removeAppt() {
 
+    transition(DELETING)
     props.cancelInterview(props.id)
     transition(EMPTY);
 
@@ -53,7 +57,7 @@ export default function Appointment(props) {
         <Show 
         student={props.interview.student} 
         interviewer={props.interview.interviewer.name}
-        onDelete={cancel}
+        onDelete={()=> transition(CONFIRM)}
         />
       )}
 
@@ -62,6 +66,10 @@ export default function Appointment(props) {
       )}
 
       {mode === SAVING && <Status message={'Saving'}/>}
+      
+      {mode === DELETING && <Status messsage={'Deleting'} />}
+
+      {mode === CONFIRM && <Confirm message={'Are you sure you would like to delete?'} onCancel={() => back()} onConfirm={removeAppt}/>}
 
 
     </article>

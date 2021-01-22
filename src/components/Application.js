@@ -37,9 +37,8 @@ export default function Application(props) {
       
       console.log(res)
       
-    })
+    }).then(setState(prev => ({...prev, appointments: appointments})))
 
-    setState(prev => ({...prev, appointments: appointments}))
     
   }
 
@@ -59,9 +58,8 @@ export default function Application(props) {
       
       console.log(res)
       
-    })
+    }).then(setState(prev => ({...prev, appointments: appointments})))
 
-    setState(prev => ({...prev, appointments: appointments}))
 
   }
 
