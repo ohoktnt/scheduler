@@ -44,7 +44,7 @@ export default function Appointment(props) {
 
   }
 
-  function removeAppt(event) {
+  function destroy(event) {
 
     transition(DELETING, true);
 
@@ -52,22 +52,6 @@ export default function Appointment(props) {
       .cancelInterview(props.id)
       .then(() => transition(EMPTY))
       .catch((err) => transition(ERROR_DELETE, true))
-
-  }
-
-  function edit(name, interviewer) {
-
-    const interview ={
-      student:name,
-      interviewer
-    };
-
-    transition(SAVING);
-
-    props
-      .editInterview(props.id, interview)
-      .then(() => transition(SHOW))
-      .catch((err)=> transition(ERROR_SAVE, true))
 
   }
 
@@ -95,9 +79,9 @@ export default function Appointment(props) {
       
       {mode === DELETING && <Status message={'Deleting'} />}
 
-      {mode === CONFIRM && <Confirm message={'Are you sure you would like to delete?'} onCancel={() => back()} onConfirm={removeAppt}/>}
+      {mode === CONFIRM && <Confirm message={'Are you sure you would like to delete?'} onCancel={() => back()} onConfirm={destroy}/>}
 
-      {mode === EDIT && <Form interviewers={props.interviewers} onCancel={()=> back()} onSave={edit}  
+      {mode === EDIT && <Form interviewers={props.interviewers} onCancel={()=> back()} onSave={save}  
         name={props.interview.student} interviewer={props.interview.interviewer.id} />}
 
       {mode === ERROR_SAVE && <Error message={'Error - could not save '} onClose={() => back()}/> }

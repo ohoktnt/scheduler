@@ -47,25 +47,6 @@ export default function useApplicationData() {
     return axios.delete(`/api/appointments/${id}`, appointment).then(res => {
       setState(prev => ({...prev, appointments: appointments}))
     })
-
-  }
-
-  // to edit Interview
-  function editInterview(id, interview) {
-    const appointment = {
-      ...state.appointments[id],
-      interview: {...interview}
-    }
-
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
-    }
-
-    return axios.put(`/api/appointments/${id}`, appointment).then(res => {
-      setState(prev => ({...prev, appointments: appointments}))
-    })
-
   }
 
   // to collect data from api
@@ -84,7 +65,6 @@ export default function useApplicationData() {
     setDay,
     bookInterview,
     cancelInterview,
-    editInterview
   }
 
 }

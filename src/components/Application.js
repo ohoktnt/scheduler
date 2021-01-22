@@ -16,7 +16,6 @@ export default function Application(props) {
     setDay,
     bookInterview,
     cancelInterview,
-    editInterview
   } = useApplicationData();
   
   // interviewers array to be passed to the appointment component
@@ -38,7 +37,6 @@ export default function Application(props) {
       interviewers={interviewersArr}
       bookInterview={bookInterview}
       cancelInterview={cancelInterview}
-      editInterview={editInterview}
       />
     );
   });
