@@ -80,5 +80,15 @@ export default {
         data: fixtures.interviewers
       })
     }
+  }),
+  put: jest.fn(url => {
+    // mocking axios.put request for booking interview
+    if (url === '/api/appointments/1') {
+      return Promise.resolve({
+        status:204,
+        statusText: 'No Content'
+      });
+    }
+
   })
 }
