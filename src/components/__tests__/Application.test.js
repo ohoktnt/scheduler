@@ -91,4 +91,41 @@ describe("Application", () => {
     expect(getByText(monday, '1 spot remaining')).toBeInTheDocument();
   })
 
+  it("loads data, edits an interview and keeps the spots remaining for Monday the same", async () => {
+    // loads data, and select the appointment with the interview booked to be edited
+    const { container } = render(<Application />);
+    await waitForElement(() => getByText(container, "Archie Cohen"));
+
+    // const appointment = getAllByTestId(container, "appointment").find(
+    //   appointment => queryByText(appointment, "Archie Cohen")
+    // );
+
+    const appointment = getAllByTestId(container, "appointment")[1]
+
+    // console.log(prettyDOM(appointment))
+
+    // trigger editing event
+    fireEvent.click(getByAltText(appointment, "Edit"));
+    fireEvent.change(getByPlaceholderText(appointment, "Enter Student Name"), {
+      target: { value: "Lydia Miller-Jones" }
+    });
+    fireEvent.click(getByAltText(appointment, "Sylvia Palmer"))
+    fireEvent.click(getByText(appointment, "Save"));
+    
+    expect(getByText(appointment, "Saving")).toBeInTheDocument();
+    
+    await waitForElement(() => getByText(appointment, "Lydia Miller-Jones"))
+    
+    // console.log(prettyDOM(appointment))
+
+    // // confirm that spots for the day has not changed
+    const monday = getAllByTestId(container, 'day').find(eachDay => queryByText(eachDay, "Monday"));
+
+    // if the other tests is not skipped and both tests are ran - use this line
+    expect(getByText(monday, '1 spot remaining')).toBeInTheDocument();
+    
+    // the other test affects how much spots is remaining - if the previous test is skipped use the line below
+    // expect(getByText(monday, '2 spots remaining')).toBeInTheDocument();
+  })
+
 })
