@@ -58,7 +58,6 @@ function updateSpots(interview){
     }
 
     const days = updateSpots(appointment.interview);
-
     return axios.delete(`/api/appointments/${id}`, appointment).then(res => {
       setState(prev => ({...prev, appointments: appointments, days: days}))
     })

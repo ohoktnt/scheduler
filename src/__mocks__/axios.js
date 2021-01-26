@@ -89,6 +89,14 @@ export default {
         statusText: 'No Content'
       });
     }
-
+  }),
+  delete: jest.fn(url => {
+    // mocking axios.delete request for cancelling interview
+    if (url === '/api/appointments/2') {
+      return Promise.resolve({
+        staus: 204,
+        statusText: 'No Content'
+      })
+    }
   })
 }
