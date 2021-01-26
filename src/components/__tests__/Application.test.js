@@ -1,4 +1,6 @@
 import React from "react";
+// mocking a mock - axios
+import axios from "axios";
 
 import { render,
     cleanup, 
@@ -126,6 +128,55 @@ describe("Application", () => {
     
     // the other test affects how much spots is remaining - if the previous test is skipped use the line below
     // expect(getByText(monday, '2 spots remaining')).toBeInTheDocument();
+  })
+
+  it("shows the save error when failing to save an apppointment", async () => {
+    axios.put.mockRejectedValueOnce();
+    
+    const { container } = render(<Application />);
+    
+    await waitForElement(()=> getByText(container, "Archie Cohen"))
+    
+    const appointments = getAllByTestId(container, "appointment");
+    const appointment = appointments[0];
+    // or do this
+    // const appointment = getAllByTestId(container, "appointment")[0];
+    
+    // simulating a user booking an interview
+    fireEvent.click(getByAltText(appointment, "Add"));
+    fireEvent.change(getByPlaceholderText(appointment, "Enter Student Name"), {
+      target: { value: "Lydia Miller-Jones" }
+    });
+    // another way to look for text /enter student name/i - case insensitive
+    fireEvent.click(getByAltText(appointment, "Sylvia Palmer"))
+
+    fireEvent.click(getByText(appointment, 'Save'));
+
+    await waitForElement(() => getByText(appointment, "Error"))
+
+    expect(getByText(appointment, "Error")).toBeInTheDocument();
+
+    // console.log(prettyDOM(appointment))
+    
+  })
+  
+  it("shows the delete error when failing to delete an existing appointment", async () => {
+    axios.delete.mockRejectedValueOnce()
+    // loads data, and select the appointment with the interview booked
+    const { container } = render(<Application />);
+    await waitForElement(() => getByText(container, "Archie Cohen"));
+    const appointment = getAllByTestId(container, "appointment")[1];
+  
+    // trigger deleting event
+    fireEvent.click(getByAltText(appointment, "Delete"));
+    expect(getByText(appointment, "Are you sure you would like to delete?")).toBeInTheDocument();
+  
+    fireEvent.click(getByText(appointment, "Confirm"));
+    // waiting for axios call to complete and the appointment renders create mode
+    expect(getByText(appointment, "Deleting")).toBeInTheDocument();
+    await waitForElement(() => getByText(appointment, "Error"))
+
+    // console.log(prettyDOM(appointment))
   })
 
 })
