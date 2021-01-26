@@ -38,7 +38,13 @@ function updateSpots(interview){
       [id]: appointment
     }
 
-    const days = updateSpots(appointment.interview)
+    // function used when edit the spots, spots should not change
+    let days = []
+    if (!state.appointments[id].interview) {
+      days = updateSpots(appointment.interview)
+    } else {
+      days = [...state.days]
+    }
 
     return axios.put(`/api/appointments/${id}`, appointment).then(res => {
       setState(prev => ({...prev, appointments: appointments, days: days}))

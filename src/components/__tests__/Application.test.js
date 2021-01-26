@@ -16,18 +16,6 @@ import { fireEvent } from "@testing-library/react/dist";
 
 afterEach(cleanup);
 
-// it("defaults to Monday and changes the schedule whena new day is selected", () => {
-//   const { getByText } = render(<Application />);
-
-//   return waitForElement(()=> getByText("Monday"))
-//     .then(() => {
-//       fireEvent.click(getByText('Tuesday'));
-//       expect(getByText('Leopold Silvers')).toBeInTheDocument()
-//     }
-//   )
-
-// });
-
 describe("Application", () => {
 
   // using new syntax from ECMAScript 2017
@@ -82,8 +70,7 @@ describe("Application", () => {
     const { container } = render(<Application />);
     await waitForElement(() => getByText(container, "Archie Cohen"));
     const appointment = getAllByTestId(container, "appointment")[1];
-    // check to see that appointment contained an interview
-    // console.log(prettyDOM(appointment));
+
     // trigger deleting event
     fireEvent.click(getByAltText(appointment, "Delete"));
     expect(getByText(appointment, "Are you sure you would like to delete?")).toBeInTheDocument();
@@ -93,22 +80,15 @@ describe("Application", () => {
     expect(getByText(appointment, "Deleting")).toBeInTheDocument();
     await waitForElement(() => getByAltText(appointment, "Add"))
 
-    // confirm that appointment is no longer there
-    // console.log(prettyDOM(appointment));
-
     // confirm that spots for the day has increased by 1
-    // const listEl = getAllByTestId(container, "day")
-    // const monday = listEl.find(eachDay => queryByText(eachDay, "Monday"))
-    // // can be refractored to one line:
     const monday = getAllByTestId(container, 'day').find(eachDay => queryByText(eachDay, "Monday"))
     // console.log(prettyDOM(monday));
 
     // the other test affects how much spots is remaining - if the previous test is skipped use the line below
     // expect(getByText(monday, '2 spots remaining')).toBeInTheDocument();
 
-    // if the other test is not skipped and both tests an ran - use this line
+    // if the other test is not skipped and both tests are ran - use this line
     expect(getByText(monday, '1 spot remaining')).toBeInTheDocument();
-
   })
 
 })
