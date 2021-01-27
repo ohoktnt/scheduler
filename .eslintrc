@@ -1,12 +1,11 @@
 {
-  "parser": "babel-eslint",
   "env": {
     "browser": true,
     "jest": true,
     "es6": true
   },
   "plugins": ["import", "react"],
-  "extends": "react-app",
+  "extends": "eslint:recommended",
   "parserOptions": {
     "ecmaVersion": 2020,
     "sourceType": "module"
