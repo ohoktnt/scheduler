@@ -5,12 +5,13 @@ import { action } from "@storybook/addon-actions";
 
 import "index.scss";
 
+// Application components
 import Button from "components/Button";
 import DayListItem from "components/DayListItem";
 import DayList from "components/DayList";
 import InterviewerListItem from "components/InterviewerListItem";
 import InterviewerList from "components/InterviewerList";
-
+// Appointments components
 import Appointment from "components/Appointment/index";
 import Header from "components/Appointment/Header";
 import Empty from "components/Appointment/Empty";
@@ -19,7 +20,6 @@ import Confirm from "components/Appointment/Confirm";
 import Status from 'components/Appointment/Status';
 import Error from 'components/Appointment/Error';
 import Form from 'components/Appointment/Form';
-
 
 // Testing for Button Component
 storiesOf("Button", module)
@@ -39,18 +39,18 @@ storiesOf("Button", module)
   ));
 
 // Testing for DayListItem Component
-storiesOf("DayListItem", module) //Initiates Storybook and registers our DayListItem component
+storiesOf("DayListItem", module)
   .addParameters({
     backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
-  }) // Provides the default background color for our component
-  .add("Unselected", () => <DayListItem name="Monday" spots={5} />) // To define our stories, we call add() once for each of our test states to generate a story
+  })
+  .add("Unselected", () => <DayListItem name="Monday" spots={5} />)
   .add("Selected", () => <DayListItem name="Monday" spots={5} selected />) 
   .add("Full", () => <DayListItem name="Monday" spots={0} />)
   .add("Clickable", () => (
-    <DayListItem name="Tuesday" setDay={action("setDay")} spots={5} /> // action() allows us to create a callback that appears in the actions panel when clicked
+    <DayListItem name="Tuesday" setDay={action("setDay")} spots={5} />
   ));
 
-// testing for DayList Componenent
+// Testing for DayList Componenent
 const days = [
   {
     id: 1,
@@ -81,7 +81,7 @@ storiesOf("DayList", module)
   ));
 
 
-// test for InterviewerListItem
+// Test for InterviewerListItem
 const interviewer = {
   id: 1,
   name: "Sylvia Palmer",
@@ -116,7 +116,7 @@ storiesOf("InterviewerListItem", module)
     />
   ));
 
-// testing for InterviewerList
+// Testing for InterviewerList
 const interviewers = [
   { id: 1, name: "Sylvia Palmer", avatar: "https://i.imgur.com/LpaY82x.png" },
   { id: 2, name: "Tori Malcolm", avatar: "https://i.imgur.com/Nmx0Qxo.png" },
@@ -142,7 +142,6 @@ storiesOf("InterviewerList", module)
       onChange={action("setInterviewer")}
     />
   ));
-
 
 // Testing for Appointment Component
 storiesOf("Appointment", module)
@@ -192,4 +191,4 @@ storiesOf("Appointment", module)
         />
       <Appointment id="last" time="1pm"/>
     </Fragment>
-  ))
+  ));
