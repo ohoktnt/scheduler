@@ -2,7 +2,13 @@
   Using the latest tools and techniques to build a single page application using React. This modern client application allows users to book and cancel interviews.
 
 ## Screenshots
+!["Scheduler Full Page"](https://github.com/ohoktnt/scheduler/blob/master/docs/Scheduler-Full.png?raw=true)
 
+!["Form to book an interview"](https://github.com/ohoktnt/scheduler/blob/master/docs/Scheduler-Form.png?raw=true)
+
+!["Completed form/Edit interview View"](https://github.com/ohoktnt/scheduler/blob/master/docs/Scheduler-EditView.png?raw=true)
+
+!["Hover over booked interview"](https://github.com/ohoktnt/scheduler/blob/master/docs/Scheduler-hover.png?raw=true)
 
 ## Technical Specifications
 - React
