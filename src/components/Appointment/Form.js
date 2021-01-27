@@ -14,7 +14,7 @@ export default function Form(props) {
   }
 
   function cancel() {
-    reset()
+    reset();
     props.onCancel();
   }
 
@@ -28,9 +28,9 @@ export default function Form(props) {
       setError('Please select an interviewer');
       return;
     }
-    setError('')
-    
-    props.onSave(name, interviewer)
+
+    setError('');
+    props.onSave(name, interviewer);
   }
 
   return (
@@ -60,6 +60,6 @@ export default function Form(props) {
         </section>
       </section>
     </main>
-  )
+  );
 
 }
