@@ -156,6 +156,10 @@ describe("Application", () => {
 
     expect(getByText(appointment, "Error")).toBeInTheDocument();
 
+    fireEvent.click(getByAltText(appointment, "Close"));
+
+    expect(getByAltText(appointment, "Add"))
+
     // console.log(prettyDOM(appointment))
     
   })
@@ -175,6 +179,10 @@ describe("Application", () => {
     // waiting for axios call to complete and the appointment renders create mode
     expect(getByText(appointment, "Deleting")).toBeInTheDocument();
     await waitForElement(() => getByText(appointment, "Error"))
+
+    fireEvent.click(getByAltText(appointment, "Close"));
+
+    expect(getByText(appointment, "Archie Cohen"))
 
     // console.log(prettyDOM(appointment))
   })
