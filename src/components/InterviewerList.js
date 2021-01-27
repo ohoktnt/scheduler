@@ -7,7 +7,7 @@ import InterviewerListItem from "components/InterviewerListItem";
 export default function InterviewerList(props) {
 
   const parsedInterviewersList = props.interviewers.map(interviewer => {
-    
+  
     return (
       <InterviewerListItem 
         key={interviewer.id}
@@ -16,10 +16,8 @@ export default function InterviewerList(props) {
         selected={interviewer.id === props.value}
         setInterviewer={ event => props.onChange(interviewer.id)}
       />
-    )
-
+    );
   })
-
 
   return (
     <section className="interviewers">
@@ -28,8 +26,7 @@ export default function InterviewerList(props) {
         {parsedInterviewersList}
       </ul>
     </section>
-  )
-  
+  );
 }
 
 InterviewerList.propTypes = {

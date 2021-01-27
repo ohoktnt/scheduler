@@ -4,12 +4,11 @@ import "components/InterviewerListItem.scss";
 
 const classNames = require('classnames');
 
-
 export default function InterviewerListItem(props) {
 
   const listClass = classNames('interviewers__item', {
     "interviewers__item--selected": props.selected
-  })
+  });
 
   return (
     <li className={listClass} onClick={props.setInterviewer}>
@@ -20,6 +19,5 @@ export default function InterviewerListItem(props) {
     />
     {props.selected && props.name}
     </li>
-  )
-
+  );
 }

@@ -3,12 +3,11 @@ import React from "react";
 import DayList from "components/DayList";
 import Appointment from "components/Appointment";
 
-import useApplicationData from 'hooks/useApplicationData'
-import { getAppointmentsForDay, getInterview, getInterviewersForDay } from '../helpers/selectors'
+import useApplicationData from 'hooks/useApplicationData';
+import { getAppointmentsForDay, getInterview, getInterviewersForDay } from '../helpers/selectors';
 
 import "components/Appointment";
 import "components/Application.scss";
-
 
 export default function Application(props) {
   const {
@@ -19,7 +18,7 @@ export default function Application(props) {
   } = useApplicationData();
   
   // interviewers array to be passed to the appointment component
-  const interviewersArr = getInterviewersForDay(state, state.day)
+  const interviewersArr = getInterviewersForDay(state, state.day);
   
   // to to populate the appointments based on the day selected
   const dailyAppointments = getAppointmentsForDay(state, state.day);
