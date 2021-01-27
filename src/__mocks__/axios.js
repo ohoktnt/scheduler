@@ -56,6 +56,7 @@ const fixtures = {
 };
 
 export default {
+
   get: jest.fn(url => {
     if (url === '/api/days') {
       return Promise.resolve({
@@ -70,7 +71,7 @@ export default {
         status:200,
         statusText: 'OK',
         data: fixtures.appointments
-      })
+      });
     }
 
     if (url === '/api/interviewers') {
@@ -78,7 +79,7 @@ export default {
         status:200,
         statusText: 'OK',
         data: fixtures.interviewers
-      })
+      });
     }
   }),
   put: jest.fn(url => {
@@ -89,7 +90,7 @@ export default {
         statusText: 'No Content'
       });
     }
-
+    // mocking axios.put request for editing interview
     if (url === '/api/appointments/2') {
       return Promise.resolve({
         status:204,
@@ -99,12 +100,12 @@ export default {
 
   }),
   delete: jest.fn(url => {
-    // mocking axios.delete request for cancelling interview
     if (url === '/api/appointments/2') {
       return Promise.resolve({
         staus: 204,
         statusText: 'No Content'
-      })
+      });
     }
   })
+
 }
