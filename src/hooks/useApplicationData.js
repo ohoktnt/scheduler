@@ -1,5 +1,6 @@
 import { useEffect, useReducer } from 'react';
 import axios from 'axios';
+// const WebSocket = require('ws')
 
 export default function useApplicationData() {
   // replace setState with reducer
@@ -97,11 +98,25 @@ export default function useApplicationData() {
     Promise.all([
       axios.get('/api/days'),
       axios.get('/api/appointments'),
-      axios.get('/api/interviewers')
+      axios.get('/api/interviewers'),
     ]).then((all) => {
       dispatch({type: SET_APPLICATION_DATA, value: {days: all[0].data, appointments: {...all[1].data}, interviewers: all[2].data }})
     })
   }, [])
+
+  // establish websocket connection
+  useEffect(() => {
+    const socket = new WebSocket("ws://localhost:8001")
+
+    socket.addEventListener('open', function(event) {
+      socket.send('ping')
+    })
+
+    socket.addEventListener('message', function(event) {
+      console.log("Message Recieved: ", event.data)
+    })
+
+  },[])
 
   return {
     state,
