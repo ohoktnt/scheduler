@@ -1,6 +1,7 @@
 import { useEffect, useReducer } from 'react';
 import axios from 'axios';
 // const WebSocket = require('ws')
+import { getInterview } from "helpers/selectors"
 
 export default function useApplicationData() {
   // replace setState with reducer
@@ -114,9 +115,22 @@ export default function useApplicationData() {
 
     socket.addEventListener('message', function(event) {
       console.log("Message Recieved: ", event.data)
+      const message = JSON.parse(event.data)
+      console.log("originally message")
+      console.log(message)
+      if (message.interview) {
+        console.log("has state been set yet?")
+        console.log(state)
+        const newInterview = getInterview(state, message.interview)
+        console.log('new interview added!')
+        console.log(newInterview)
+      } 
+      if (message.interview === null) {
+        console.log('interview cancelled!')
+      }
     })
 
-  },[])
+  },[state.interviewers])
 
   return {
     state,
